@@ -23,13 +23,13 @@ const FIXED = [
   'skilled',
 ]
 
-function BiasWord({ word, tooltip }: BiasedWord) {
+function BiasWord({ text, tooltip }: BiasedWord) {
   const [open, setOpen] = useState(false)
 
   return (
     <span className="relative inline-block" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <mark className="bg-[#FF4D4D20] text-danger rounded-sm px-1 border-b border-danger/50 cursor-default not-italic">
-        {word}
+        {text}
       </mark>
       <AnimatePresence>
         {open && (

@@ -1,5 +1,27 @@
+import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
+
+function StepNumber({ num }: { num: string }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <span
+      className="font-syne font-bold select-none"
+      style={{
+        fontSize: 'clamp(64px, 8vw, 96px)',
+        lineHeight: 1,
+        color: 'transparent',
+        WebkitTextStroke: '1px #E8FF47',
+        WebkitTextFillColor: hovered ? '#E8FF47' : 'transparent',
+        transition: 'all 0.3s',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {num}
+    </span>
+  )
+}
 
 const STEPS = [
   {
@@ -63,21 +85,7 @@ export default function HowItWorks() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.2, duration: 0.6, ease: 'easeOut' }}
             >
-              <motion.span
-                className="font-syne font-bold select-none transition-all duration-300"
-                style={{
-                  fontSize: 'clamp(64px, 8vw, 96px)',
-                  color: 'transparent',
-                  WebkitTextStroke: '1px #E8FF47',
-                  lineHeight: 1,
-                }}
-                whileHover={reduced ? {} : {
-                  WebkitTextFillColor: '#E8FF47',
-                  WebkitTextStroke: '1px #E8FF47',
-                }}
-              >
-                {step.num}
-              </motion.span>
+              <StepNumber num={step.num} />
               <h3 className="font-syne font-bold text-xl text-white">{step.title}</h3>
               <p className="font-dm text-sm text-textMuted leading-relaxed">{step.desc}</p>
             </motion.div>

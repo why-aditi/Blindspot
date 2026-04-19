@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Float } from '@react-three/drei'
 import * as THREE from 'three'
@@ -56,11 +56,9 @@ function NodeMesh({
 function EdgeLine({ start, end }: { start: [number, number, number]; end: [number, number, number] }) {
   const points = [new THREE.Vector3(...start), new THREE.Vector3(...end)]
   const geometry = new THREE.BufferGeometry().setFromPoints(points)
-  return (
-    <line geometry={geometry}>
-      <lineBasicMaterial color="#2a2a35" transparent opacity={0.6} />
-    </line>
-  )
+  const material = new THREE.LineBasicMaterial({ color: '#2a2a35', transparent: true, opacity: 0.6 })
+  const lineObj = new THREE.Line(geometry, material)
+  return <primitive object={lineObj} />
 }
 
 function ModelGraph() {
@@ -114,11 +112,11 @@ export default function Hero() {
   const canvasY = useTransform(scrollYProgress, [0, 1], [0, -80])
   const reduced = prefersReduced()
 
-  const wordVariants = {
-    hidden: reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 },
+  const wordVariants: Variants = {
+    hidden: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 60 },
     visible: (i: number) => ({
       opacity: 1, y: 0,
-      transition: { delay: 0.3 + i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      transition: { delay: 0.3 + i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
     }),
   }
 
