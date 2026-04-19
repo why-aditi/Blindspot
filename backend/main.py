@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers.audit import router as audit_router
@@ -38,3 +39,13 @@ async def root():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    # Use PORT environment variable for deployment platforms (Render, etc.)
+    # Default to 8000 for local development
+    port = int(os.environ.get("PORT", 8000))
+    # Bind to 0.0.0.0 for deployment, 127.0.0.1 for local
+    host = os.environ.get("HOST", "127.0.0.1")
+    uvicorn.run("main:app", host=host, port=port)
