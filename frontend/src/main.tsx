@@ -1,6 +1,6 @@
 import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import Lenis from '@studio-freight/lenis'
+import Lenis from 'lenis'
 import './index.css'
 import App from './App.tsx'
 

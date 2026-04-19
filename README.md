@@ -35,7 +35,7 @@ Built for **Google Solution Challenge 2026** · Aligned with **SDG 10 — Reduce
 - **Tailwind CSS** — utility styling with custom Blindspot design tokens
 - **Framer Motion** — scroll animations, entrance effects, layout transitions
 - **@react-three/fiber + drei** — 3D bias node graph in the hero
-- **@studio-freight/lenis** — smooth scroll
+- **lenis** — smooth scroll
 - **Sonner** — toast notifications
 - **Lucide React** — icons
 
