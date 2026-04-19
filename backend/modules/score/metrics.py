@@ -20,7 +20,7 @@ def calculate_statistical_parity(y_true: np.ndarray, y_pred: np.ndarray,
     
     for group in unique_groups:
         mask = sensitive_features == group
-        group_rates[group] = np.mean(y_pred[mask])
+        group_rates[int(group)] = float(np.mean(y_pred[mask]))
     
     if len(group_rates) < 2:
         return {'error': 'Need at least 2 groups to calculate parity'}
@@ -32,7 +32,7 @@ def calculate_statistical_parity(y_true: np.ndarray, y_pred: np.ndarray,
     return {
         'group_rates': group_rates,
         'difference': max_rate - min_rate,
-        'ratio': max_rate / min_rate if min_rate > 0 else float('inf')
+        'ratio': float(max_rate / min_rate) if min_rate > 0 else None
     }
 
 
@@ -60,10 +60,9 @@ def calculate_predictive_parity(y_true: np.ndarray, y_pred: np.ndarray,
         # Only calculate precision for positive predictions
         positive_mask = group_y_pred == 1
         if np.sum(positive_mask) > 0:
-            precision = np.mean(group_y_true[positive_mask] == 1)
-            group_precisions[group] = precision
+            group_precisions[int(group)] = float(np.mean(group_y_true[positive_mask] == 1))
         else:
-            group_precisions[group] = 0.0
+            group_precisions[int(group)] = 0.0
     
     if len(group_precisions) < 2:
         return {'error': 'Need at least 2 groups with positive predictions'}
@@ -74,6 +73,6 @@ def calculate_predictive_parity(y_true: np.ndarray, y_pred: np.ndarray,
     
     return {
         'group_precisions': group_precisions,
-        'difference': max_prec - min_prec,
-        'ratio': max_prec / min_prec if min_prec > 0 else float('inf')
+        'difference': float(max_prec - min_prec),
+        'ratio': float(max_prec / min_prec) if min_prec > 0 else None,
     }

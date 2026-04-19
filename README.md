@@ -25,8 +25,7 @@ Built for **Google Solution Challenge 2026** · Aligned with **SDG 10 — Reduce
 
 ### Backend
 - **FastAPI** + Uvicorn
-- **Pandas / NumPy** — data processing
-- **Fairlearn / scikit-learn** — fairness metrics
+- **Pandas / NumPy / SciPy** — data processing and distance calculations
 - **Pydantic** — request validation
 - **Supabase** — database (wired, not yet used)
 
@@ -83,23 +82,29 @@ Runs at `http://localhost:5173`.
 ```
 blindspot/
 ├── backend/
-│   ├── main.py              # FastAPI app, CORS config
+│   ├── main.py              # FastAPI app, CORS config, deployment-ready server
 │   ├── req.txt              # Python dependencies
-│   ├── routers/
+│   ├── routers/             # HTTP routes layer
 │   │   ├── audit.py         # POST /audit
 │   │   └── score.py         # POST /score
-│   ├── modules/
+│   ├── controllers/         # Request orchestration layer
+│   │   ├── audit_controller.py
+│   │   └── score_controller.py
+│   ├── services/            # Business logic layer
+│   │   ├── audit_service.py
+│   │   └── score_service.py
+│   ├── modules/             # Core fairness algorithms
 │   │   ├── audit/
 │   │   │   ├── auditor.py   # BiasAuditor — distribution, proxy, label skew
 │   │   │   └── utils.py
 │   │   └── score/
-│   │       ├── scorer.py    # FairScorer — weighted fairness score
-│   │       └── metrics.py
+│   │       ├── scorer.py    # FairScorer — weighted fairness score (DP:30%, EO:50%, IF:20%)
+│   │       └── metrics.py   # Statistical/predictive parity calculations
 │   └── db/
 │       └── supabase_client.py
 └── frontend/
     ├── index.html
-    ├── tailwind.config.js   # Blindspot design tokens
+    ├── tailwind.config.js   # Blindspot design tokens (accent, danger, clear colors)
     └── src/
         ├── App.tsx           # Router — / for landing, /* for app
         ├── main.tsx          # Lenis smooth scroll init
