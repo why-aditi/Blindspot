@@ -46,6 +46,6 @@ if __name__ == "__main__":
     # Use PORT environment variable for deployment platforms (Render, etc.)
     # Default to 8000 for local development
     port = int(os.environ.get("PORT", 8000))
-    # Bind to 0.0.0.0 for deployment, 127.0.0.1 for local
-    host = os.environ.get("HOST", "127.0.0.1")
+    # Bind to 0.0.0.0 for deployment compatibility
+    host = os.environ.get("HOST", "0.0.0.0")
     uvicorn.run("main:app", host=host, port=port)
