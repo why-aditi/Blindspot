@@ -61,11 +61,12 @@ class BiasAuditor:
         if label_col in df.columns:
             for col in protected_cols:
                 if col in df.columns:
-                    # Convert label to numeric for mean calculation
-                    label_series = df[label_col]
-                    if label_series.dtype == 'object':
-                        label_series = pd.factorize(label_series)[0]
-                    label_dist = df.groupby(col)[label_series].mean()
+                    label_vals = df[label_col]
+                    if label_vals.dtype == 'object':
+                        label_vals = pd.Series(pd.factorize(label_vals)[0], index=df.index)
+                    tmp = df[[col]].copy()
+                    tmp['_y'] = label_vals
+                    label_dist = tmp.groupby(col)['_y'].mean()
                     results[f'label_skew_{col}'] = label_dist.to_dict()
         
         return results

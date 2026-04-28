@@ -54,6 +54,25 @@ const Audit = () => {
     }
   };
 
+  const loadSample = () => {
+    const csv = [
+      'gender,age,education,region,hired',
+      '1,32,2,0,1','0,28,3,1,0','1,45,1,0,1','0,35,2,2,0',
+      '1,29,3,1,1','0,42,1,0,0','1,38,2,1,1','0,25,3,2,0',
+      '1,51,1,0,1','0,33,2,1,0','1,27,3,0,1','0,48,1,2,0',
+      '1,36,2,1,1','0,31,3,0,1','1,44,1,1,1','0,26,2,2,0',
+      '1,39,3,0,1','0,53,1,1,0','1,22,2,0,1','0,41,3,2,0',
+      '1,34,1,1,1','0,29,2,0,0','1,47,3,1,1','0,38,1,2,0',
+      '1,30,2,0,1','0,45,3,1,0','1,25,1,0,1','0,36,2,2,0',
+      '1,42,3,1,1','0,27,1,0,0','1,55,2,0,1','0,43,3,2,0',
+      '1,37,1,1,1','0,24,2,0,0','1,49,3,0,1','0,32,1,2,0',
+      '1,28,2,1,1','0,46,3,1,0','1,33,1,0,1','0,39,2,2,0',
+    ].join('\n');
+    setFile(new File([csv], 'sample_audit.csv', { type: 'text/csv' }));
+    setProtectedCols('gender,region');
+    setLabelCol('hired');
+  };
+
   const handleReset = () => { setFile(null); setProtectedCols(''); setLabelCol(''); setResult(null); setError(null); };
 
   return (
@@ -71,9 +90,13 @@ const Audit = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* File Upload */}
             <div>
-              <label className="block font-syne font-bold text-sm text-textPrimary mb-3">
-                Upload Dataset
-              </label>
+              <div className="flex items-center justify-between mb-3">
+                <label className="font-syne font-bold text-sm text-textPrimary">Upload Dataset</label>
+                <button type="button" onClick={loadSample}
+                  className="text-xs text-accent font-dm hover:underline underline-offset-2">
+                  Load sample data
+                </button>
+              </div>
               <div
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}

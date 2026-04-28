@@ -3,6 +3,10 @@ import Navigation from './components/Navigation';
 import Dashboard from './pages/Dashboard';
 import Audit from './pages/Audit';
 import FairScore from './pages/FairScore';
+import Explain from './pages/Explain';
+import Correct from './pages/Correct';
+import NLPScanner from './pages/NLPScanner';
+import Monitor from './pages/Monitor';
 import LandingPage from './components/landing/LandingPage';
 
 function AppLayout() {
@@ -13,6 +17,10 @@ function AppLayout() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/audit" element={<Audit />} />
         <Route path="/score" element={<FairScore />} />
+        <Route path="/explain" element={<Explain />} />
+        <Route path="/correct" element={<Correct />} />
+        <Route path="/nlp-scan" element={<NLPScanner />} />
+        <Route path="/monitor" element={<Monitor />} />
       </Routes>
     </div>
   );

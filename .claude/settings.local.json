@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.py$\")",
+      "Bash(.venv/Scripts/python.exe -)",
+      "Bash(claude plugin *)"
+    ]
+  }
+}

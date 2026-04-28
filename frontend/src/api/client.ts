@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -55,6 +55,41 @@ export const scoreModel = async (data: {
 
 export const healthCheck = async () => {
   const response = await apiClient.get('/health');
+  return response.data;
+};
+
+export const explainDecision = async (formData: FormData) => {
+  const response = await apiClient.post('/explain', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
+
+export interface CorrectionPayload {
+  strategy: 'pre' | 'in' | 'post';
+  X_test: number[][];
+  y_true: number[];
+  y_pred: number[];
+  sensitive_features: number[];
+  X_train?: number[][];
+  y_train?: number[];
+  sensitive_train?: number[];
+}
+
+export const correctBias = async (data: CorrectionPayload) => {
+  const response = await apiClient.post('/correct', data);
+  return response.data;
+};
+
+export const scanText = async (text: string) => {
+  const response = await apiClient.post('/nlp-scan', { text });
+  return response.data;
+};
+
+export const monitorFairness = async (formData: FormData) => {
+  const response = await apiClient.post('/monitor', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return response.data;
 };
 

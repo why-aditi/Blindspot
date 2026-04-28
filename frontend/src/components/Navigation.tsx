@@ -1,10 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FileText, Gauge, LayoutDashboard, ArrowLeft } from 'lucide-react';
+import { FileText, Gauge, LayoutDashboard, ArrowLeft, Lightbulb, Sliders, ScanText, Activity } from 'lucide-react';
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/audit',     label: 'Audit',     icon: FileText },
   { path: '/score',     label: 'FairScore',  icon: Gauge },
+  { path: '/explain',   label: 'Explain',   icon: Lightbulb },
+  { path: '/correct',   label: 'Correct',   icon: Sliders },
+  { path: '/nlp-scan',  label: 'NLP Scan',  icon: ScanText },
+  { path: '/monitor',   label: 'Monitor',   icon: Activity },
 ];
 
 const Navigation = () => {
