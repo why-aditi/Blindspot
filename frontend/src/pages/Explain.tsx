@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Lightbulb, Upload } from 'lucide-react';
-import { explainDecision, API_BASE_URL } from '../api/client';
+import { explainDecision } from '../api/client';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorAlert from '../components/ErrorAlert';
 
